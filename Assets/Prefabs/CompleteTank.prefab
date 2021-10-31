@@ -10583,7 +10583,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerNumber: 1
-  MovementStats: {fileID: 11400000, guid: 1ae6c2fdbaf89064aabd5e232f84cd90, type: 2}
   m_MovementAudio: {fileID: 8261418}
   m_EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
   m_EngineDriving: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
@@ -10600,12 +10599,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030896d0325fa3e4d8d7d4cfe2351cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthConfig: {fileID: 11400000, guid: 1ae6c2fdbaf89064aabd5e232f84cd90, type: 2}
   m_Slider: {fileID: 11482748}
   m_FillImage: {fileID: 11404512}
   m_FullHealthColor: {r: 0, g: 1, b: 0, a: 1}
   m_ZeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
   m_ExplosionPrefab: {fileID: 151086, guid: 6bc6d0dd8b8428e4ca316513f2cf13c6, type: 3}
+  m_DeadTankPrefab: {fileID: 100000, guid: 8c6d26fe262194242becdec17209d306, type: 3}
 --- !u!114 &11488788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10619,7 +10618,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerNumber: 1
-  ShootingStats: {fileID: 11400000, guid: 1ae6c2fdbaf89064aabd5e232f84cd90, type: 2}
   m_Shell: {fileID: 5409530, guid: 008ecb1b70bec724fa2cd34255b0d8f8, type: 3}
   m_FireTransform: {fileID: 435794}
   m_AimSlider: {fileID: 11407922}

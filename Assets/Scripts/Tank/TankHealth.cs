@@ -8,13 +8,14 @@ public class TankHealth : MonoBehaviour
     public Color m_FullHealthColor = Color.green;       // The color the health bar will be when on full health.
     public Color m_ZeroHealthColor = Color.red;         // The color the health bar will be when on no health.
     public GameObject m_ExplosionPrefab;                // A prefab that will be instantiated in Awake, then used whenever the tank dies.
-        
+    public GameObject m_DeadTankPrefab;                 // A prefab to be spawned on death  
         
     private AudioSource m_ExplosionAudio;               // The audio source to play when the tank explodes.
     private ParticleSystem m_ExplosionParticles;        // The particle system the will play when the tank is destroyed.
     private float m_CurrentHealth;                      // How much health the tank currently has.
     private bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
-    private TankStats HealthConfig;                      // Data container scriptable object to contain tank stats
+    private TankStats m_HealthConfig;                   // Data container scriptable object to contain tank stats
+    private GameObject m_CorpseReference;
 
     private void Awake ()
     {
@@ -34,16 +35,21 @@ public class TankHealth : MonoBehaviour
         m_Dead = false;
 
         // When the tank is enabled, reset the tank's health and whether or not it's dead.
-        if (!HealthConfig) return;
-        m_CurrentHealth = HealthConfig.m_StartingHealth;
+        if (!m_HealthConfig) return;
+        m_CurrentHealth = m_HealthConfig.m_StartingHealth;
+
         // Update the health slider's value and color.
         SetHealthUI();
+
+        // Remove the busted tank
+        if (!m_CorpseReference) return;
+        Destroy(m_CorpseReference);
     }
 
     public void SetHealth(TankStats healthStat)
     {
-        HealthConfig = healthStat;
-        m_CurrentHealth = HealthConfig.m_StartingHealth;
+        m_HealthConfig = healthStat;
+        m_CurrentHealth = m_HealthConfig.m_StartingHealth;
         SetHealthUI();
     }
 
@@ -69,7 +75,7 @@ public class TankHealth : MonoBehaviour
         m_Slider.value = m_CurrentHealth;
 
         // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
-        m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / HealthConfig.m_StartingHealth);
+        m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_HealthConfig.m_StartingHealth);
     }
 
 
@@ -87,6 +93,9 @@ public class TankHealth : MonoBehaviour
 
         // Play the tank explosion sound effect.
         m_ExplosionAudio.Play();
+
+        // Spawn dead tank
+        m_CorpseReference = Instantiate(m_DeadTankPrefab, transform.position, transform.rotation);
 
         // Turn the tank off.
         gameObject.SetActive (false);
